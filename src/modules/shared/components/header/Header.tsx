@@ -1,7 +1,6 @@
 import { Component } from 'react';
-import styles from './Header.module.css';
-import logo from '../../assets/Pokeball.svg';
-
+import styles from './Heade.module.css';
+import logo from '../../../../assets/Pokeball.svg';
 class Header extends Component {
   render() {
     return (

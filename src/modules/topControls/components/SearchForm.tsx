@@ -1,7 +1,6 @@
-// src/modules/topControls/components/SearchForm.tsx
 import { Component, ChangeEvent } from 'react';
 import styles from './SearchForm.module.css';
-import { trimInput } from '@modules/core/ src/modules/core/utils/stringHelpers.ts';
+import { trimInput } from '@modules/core/utils/stringHelpers.ts';
 
 interface SearchFormProps {
   onSearch: (query: string) => void;

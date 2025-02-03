@@ -31,6 +31,7 @@ class App extends Component<object, AppState> {
   performSearch = async (query: string) => {
     this.setState({ loading: true, error: null });
     try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const items: Item[] = await fetchItems(query);
       this.setState({ data: items, loading: false });
     } catch (error: unknown) {

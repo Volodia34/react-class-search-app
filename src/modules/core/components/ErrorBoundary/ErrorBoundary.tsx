@@ -1,45 +1,44 @@
-import type { ErrorInfo, ReactNode } from 'react';
-import { Component } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
+import styles from './ErrorBoundaty.module.css';
 
-type Props = {
-  children: ReactNode;
-};
-
-type State = {
+interface State {
   hasError: boolean;
-};
+  error: Error | null;
+  errorInfo: ErrorInfo | null;
+}
 
-export class ErrorBoundary extends Component<Props, State> {
+interface Props {
+  children?: ReactNode;
+}
+
+class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {
-      hasError: false,
-    };
+    this.state = { hasError: false, error: null, errorInfo: null };
   }
 
-  public static getDerivedStateFromError(): State {
-    return { hasError: true };
+  static getDerivedStateFromError(error: Error): Partial<State> {
+    return { hasError: true, error };
   }
 
-  public componentDidCatch(error: Error, info: ErrorInfo): void {
-    let errorContent = `Error: ${error.message}`;
-
-    if (info.componentStack) {
-      errorContent += `\nComponent stack: ${info.componentStack}`;
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
+    console.error('Error caught by ErrorBoundary:', error);
+    console.error('Error info:', errorInfo);
+    this.setState({ error, errorInfo });
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className={styles.errorBoundary}>
+          <h1>Something went wrong.</h1>
+          <p>{this.state.error?.toString()}</p>
+          <details>{this.state.errorInfo?.componentStack}</details>
+          <button onClick={() => window.location.reload()}>Reload Page</button>
+        </div>
+      );
     }
 
-    console.error(errorContent);
-  }
-
-  public render(): ReactNode {
-    const { hasError } = this.state;
-    const { children } = this.props;
-
-    if (hasError) {
-      return <h1>Something went wrong.</h1>;
-    }
-
-    return children;
+    return this.props.children;
   }
 }
 

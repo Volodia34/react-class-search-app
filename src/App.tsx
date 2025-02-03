@@ -5,6 +5,7 @@ import { fetchItems } from '@modules/core/lib/apiService.ts';
 import ResultsList from '@modules/resultsSection/components/ResultsList.tsx';
 import { Item } from './types/Item.ts';
 import ErrorBoundary from '@modules/core/components/ErrorBoundary/ErrorBoundary.tsx';
+import ErrorButton from '@modules/core/components/ErrorButton/ErrorButton.tsx';
 
 interface AppState {
   data: Item[];
@@ -39,10 +40,6 @@ class App extends Component<object, AppState> {
     }
   };
 
-  handleErrorButtonClick = () => {
-    throw new Error('Test error for ErrorBoundary!');
-  };
-
   render() {
     return (
       <ErrorBoundary>
@@ -57,12 +54,7 @@ class App extends Component<object, AppState> {
             />
           </main>
           <footer style={{ marginTop: '20px', textAlign: 'center' }}>
-            <button
-              onClick={this.handleErrorButtonClick}
-              style={{ padding: '8px 16px' }}
-            >
-              Error Button
-            </button>
+            <ErrorButton />
           </footer>
         </div>
       </ErrorBoundary>

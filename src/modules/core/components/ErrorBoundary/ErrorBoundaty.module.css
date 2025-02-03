@@ -1,0 +1,41 @@
+/* src/modules/core/components/ErrorBoundary/ErrorBoundary.module.css */
+.errorBoundary {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+
+.errorBoundary h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #1d1d1d;
+}
+
+.errorBoundary p {
+    font-size: 1em;
+}
+
+.errorBoundary details {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.errorBoundary button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.errorBoundary button:hover {
+    background-color: #0056b3;
+}

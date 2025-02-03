@@ -20,7 +20,7 @@ interface PokemonData {
 export const fetchItems = async (searchTerm: string): Promise<Item[]> => {
   const url = searchTerm
     ? `https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`
-    : 'https://pokeapi.co/api/v2/pokemon?limit=20&offset=0';
+    : 'https://pokeapi.co/api/v2/pokemon?limit=18&offset=0';
 
   const response = await fetch(url);
   if (!response.ok) {

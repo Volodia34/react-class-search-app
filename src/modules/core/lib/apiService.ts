@@ -37,7 +37,7 @@ export const fetchItems = async (searchTerm: string): Promise<Item[]> => {
         );
         return {
           name: item.name,
-          number: pokemonData.id.toString(), // Convert number to string
+          number: pokemonData.id.toString(),
           imageSrc: pokemonData.sprites.other['official-artwork'].front_default,
         };
       })
@@ -48,7 +48,7 @@ export const fetchItems = async (searchTerm: string): Promise<Item[]> => {
     return [
       {
         name: pokemonData.name,
-        number: pokemonData.id.toString(), // Convert number to string
+        number: pokemonData.id.toString(),
         imageSrc: pokemonData.sprites.other['official-artwork'].front_default,
       },
     ];

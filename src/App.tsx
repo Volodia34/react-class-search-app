@@ -4,6 +4,7 @@ import SearchForm from '@modules/topControls/components/SearchForm.tsx';
 import { fetchItems } from '@modules/core/lib/apiService.ts';
 import ResultsList from '@modules/resultsSection/components/ResultsList.tsx';
 import { Item } from './types/Item.ts';
+import ErrorBoundary from '@modules/core/components/ErrorBoundary/ErrorBoundary.tsx';
 
 interface AppState {
   data: Item[];
@@ -38,19 +39,33 @@ class App extends Component<object, AppState> {
     }
   };
 
+  handleErrorButtonClick = () => {
+    throw new Error('Test error for ErrorBoundary!');
+  };
+
   render() {
     return (
-      <div>
-        <Header />
-        <SearchForm onSearch={this.performSearch} />
-        <main>
-          <ResultsList
-            loading={this.state.loading}
-            error={this.state.error}
-            data={this.state.data}
-          />
-        </main>
-      </div>
+      <ErrorBoundary>
+        <div>
+          <Header />
+          <SearchForm onSearch={this.performSearch} />
+          <main>
+            <ResultsList
+              loading={this.state.loading}
+              error={this.state.error}
+              data={this.state.data}
+            />
+          </main>
+          <footer style={{ marginTop: '20px', textAlign: 'center' }}>
+            <button
+              onClick={this.handleErrorButtonClick}
+              style={{ padding: '8px 16px' }}
+            >
+              Error Button
+            </button>
+          </footer>
+        </div>
+      </ErrorBoundary>
     );
   }
 }

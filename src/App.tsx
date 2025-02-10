@@ -13,6 +13,7 @@ import ResultsList from '@modules/resultsSection/components/ResultsList';
 import Pagination from '@modules/resultsSection/components/Pagination';
 import { Item } from './types/Item.ts';
 import './App.css';
+import ErrorButton from '@modules/core/components/ErrorButton/ErrorButton.tsx';
 
 const ITEMS_PER_PAGE = 18;
 
@@ -89,6 +90,7 @@ const App: React.FC = () => {
           </div>
         )}
       </div>
+      <ErrorButton />
     </div>
   );
 };

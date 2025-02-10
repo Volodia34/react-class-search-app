@@ -1,15 +1,14 @@
-import { Component } from 'react';
-import styles from './Heade.module.css';
+import React from 'react';
+import styles from './Header.module.css';
 import logo from '../../../../assets/Pokeball.svg';
-class Header extends Component {
-  render() {
-    return (
-      <header className={styles.header}>
-        <img src={logo} alt="" />
-        <h1>Pokédex</h1>
-      </header>
-    );
-  }
-}
+
+const Header: React.FC = () => {
+  return (
+    <header className={styles.header}>
+      <img src={logo} alt="Logo" />
+      <h1>Pokédex</h1>
+    </header>
+  );
+};
 
 export default Header;

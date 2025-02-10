@@ -14,9 +14,15 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
     setQuery(e.target.value);
   };
 
-  const handleSearchClick = () => {
+  const handleSearch = () => {
     const trimmedQuery = trimInput(query);
     onSearch(trimmedQuery);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
   };
 
   return (
@@ -25,10 +31,11 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
         type="text"
         value={query}
         onChange={handleInputChange}
+        onKeyPress={handleKeyPress}
         placeholder="Search"
         className={styles.searchInput}
       />
-      <button onClick={handleSearchClick} className={styles.searchButton}>
+      <button onClick={handleSearch} className={styles.searchButton}>
         Search
       </button>
     </div>

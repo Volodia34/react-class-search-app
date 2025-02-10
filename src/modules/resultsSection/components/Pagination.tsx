@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import styles from './Pagination.module.css';
 
 interface PaginationProps {
   totalPages: number;
@@ -16,17 +17,21 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
   };
 
   return (
-    <div style={{ marginTop: '16px' }}>
-      {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
-        <button
-          key={page}
-          disabled={page === currentPage}
-          onClick={() => handlePageChange(page)}
-          style={{ margin: '0 4px' }}
-        >
-          {page}
-        </button>
-      ))}
+    <div className={styles.paginationContainer}>
+      <div className={styles.paginationWrapper}>
+        {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+          <button
+            key={page}
+            disabled={page === currentPage}
+            onClick={() => handlePageChange(page)}
+            className={`${styles.pageButton} ${
+              page === currentPage ? styles.activePage : styles.inactivePage
+            }`}
+          >
+            {page}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

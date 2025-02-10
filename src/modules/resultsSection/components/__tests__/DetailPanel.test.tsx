@@ -3,6 +3,34 @@ import '@testing-library/jest-dom';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import DetailPanel from '@modules/resultsSection/components/DetailPanel.tsx';
 
+// Mock the fetch API
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    ok: true,
+    json: () =>
+      Promise.resolve({
+        id: 123,
+        name: 'scyther',
+        weight: 560,
+        height: 150,
+        types: [{ type: { name: 'bug' } }, { type: { name: 'flying' } }],
+        abilities: [
+          { ability: { name: 'swarm' } },
+          { ability: { name: 'technician' } },
+        ],
+        stats: [{ base_stat: 70, stat: { name: 'speed' } }],
+        sprites: {
+          other: {
+            'official-artwork': {
+              front_default:
+                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/123.png',
+            },
+          },
+        },
+      }),
+  })
+);
+
 jest.useFakeTimers();
 
 describe('DetailPanel Component', () => {
@@ -17,12 +45,12 @@ describe('DetailPanel Component', () => {
       </MemoryRouter>
     );
 
-    expect(screen.getByRole('status')).toBeInTheDocument();
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
 
     jest.advanceTimersByTime(1000);
 
     await waitFor(() => {
-      expect(screen.getByText(`Pokemon ${detailId}`)).toBeInTheDocument();
+      expect(screen.getByText('scyther')).toBeInTheDocument();
     });
   });
 
@@ -39,17 +67,15 @@ describe('DetailPanel Component', () => {
     jest.advanceTimersByTime(1000);
 
     await waitFor(() => {
-      expect(screen.getByText(`Pokemon ${detailId}`)).toBeInTheDocument();
-      expect(
-        screen.getByText(`Detailed description for Pokemon ${detailId}.`)
-      ).toBeInTheDocument();
+      expect(screen.getByText('scyther')).toBeInTheDocument();
+      expect(screen.getByText('#123')).toBeInTheDocument();
     });
 
-    const closeButton = screen.getByText(/закрити/i);
+    const closeButton = screen.getByText('←');
     fireEvent.click(closeButton);
 
     await waitFor(() => {
-      expect(screen.getByText(/home page/i)).toBeInTheDocument();
+      expect(screen.getByText('Home Page')).toBeInTheDocument();
     });
   });
 });

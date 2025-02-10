@@ -53,7 +53,6 @@ const App: React.FC = () => {
     }
   };
 
-  // Обчислюємо пагінацію
   const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
   const paginatedData = data.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -67,7 +66,6 @@ const App: React.FC = () => {
       <Header />
       <SearchForm onSearch={performSearch} />
       <div className="app-layout" style={{ display: 'flex' }}>
-        {/* Ліва секція з результатами */}
         <div
           className="left-section"
           style={{ flex: 1 }}
@@ -81,7 +79,7 @@ const App: React.FC = () => {
         {detailMatch && (
           <div
             className="right-section"
-            style={{ width: '400px', borderLeft: '1px solid #ccc' }}
+            style={{ width: '600px', borderLeft: '1px solid #ccc' }}
           >
             <Outlet />
           </div>

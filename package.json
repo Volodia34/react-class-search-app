@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "format:fix": "prettier --write .",
     "prepare": "husky && chmod ug+x .husky/*",
-    "test": "jest",
+    "test": "jest --collectCoverageFrom=\"src/**/*.tsx\" --coverage",
     "test:coverage": "jest --coverage"
   },
   "dependencies": {

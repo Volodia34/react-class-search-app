@@ -1,4 +1,8 @@
 module.exports = {
+  collectCoverage: true,
+  collectCoverageFrom: ['src/**/*.tsx'],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov'],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
   },

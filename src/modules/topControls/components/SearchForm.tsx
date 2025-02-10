@@ -1,53 +1,38 @@
-import { Component, ChangeEvent } from 'react';
+import React from 'react';
 import styles from './SearchForm.module.css';
-import { trimInput } from '@modules/core/utils/stringHelpers.ts';
+import { trimInput } from '@modules/core/utils/stringHelpers';
+import { useStoredSearchQuery } from '@modules/core/hooks/useStoredSearchQuery.ts';
 
 interface SearchFormProps {
   onSearch: (query: string) => void;
 }
 
-interface SearchFormState {
-  query: string;
-}
+const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
+  const [query, setQuery] = useStoredSearchQuery('searchTerm');
 
-class SearchForm extends Component<SearchFormProps, SearchFormState> {
-  constructor(props: SearchFormProps) {
-    super(props);
-    const savedQuery = localStorage.getItem('searchTerm') || '';
-    this.state = {
-      query: savedQuery,
-    };
-  }
-
-  handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ query: e.target.value });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
   };
 
-  handleSearchClick = () => {
-    const trimmedQuery = trimInput(this.state.query);
-    localStorage.setItem('searchTerm', trimmedQuery);
-    this.props.onSearch(trimmedQuery);
+  const handleSearchClick = () => {
+    const trimmedQuery = trimInput(query);
+    onSearch(trimmedQuery);
   };
 
-  render() {
-    return (
-      <div className={styles.searchForm}>
-        <input
-          type="text"
-          value={this.state.query}
-          onChange={this.handleInputChange}
-          placeholder="Search"
-          className={styles.searchInput}
-        />
-        <button
-          onClick={this.handleSearchClick}
-          className={styles.searchButton}
-        >
-          Search
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className={styles.searchForm}>
+      <input
+        type="text"
+        value={query}
+        onChange={handleInputChange}
+        placeholder="Search"
+        className={styles.searchInput}
+      />
+      <button onClick={handleSearchClick} className={styles.searchButton}>
+        Search
+      </button>
+    </div>
+  );
+};
 
 export default SearchForm;

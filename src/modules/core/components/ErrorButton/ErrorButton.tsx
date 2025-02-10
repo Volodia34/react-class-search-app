@@ -1,26 +1,22 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
 import styles from './ErrorButton.module.css';
 
-class ErrorButton extends Component {
-  state = {
-    throwError: false,
+const ErrorButton: React.FC = () => {
+  const [throwError, setThrowError] = useState(false);
+
+  const handleClick = () => {
+    setThrowError(true);
   };
 
-  handleClick = () => {
-    this.setState({ throwError: true });
-  };
-
-  render() {
-    if (this.state.throwError) {
-      throw new Error('Something went wrong');
-    }
-
-    return (
-      <button className={styles.errorButton} onClick={this.handleClick}>
-        Error Button
-      </button>
-    );
+  if (throwError) {
+    throw new Error('Something went wrong');
   }
-}
+
+  return (
+    <button className={styles.errorButton} onClick={handleClick}>
+      Error Button
+    </button>
+  );
+};
 
 export default ErrorButton;

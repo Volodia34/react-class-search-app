@@ -25,7 +25,6 @@ const App: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Отримуємо поточну сторінку з query-параметрів (за замовчуванням 1)
   const pageParam = searchParams.get('page');
   const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
 
@@ -33,7 +32,6 @@ const App: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      // Імітуємо затримку для демонстрації завантаження
       await new Promise((resolve) => setTimeout(resolve, 1000));
       const items: Item[] = await fetchItems(query);
       setData(items);
@@ -49,7 +47,6 @@ const App: React.FC = () => {
     performSearch(savedQuery);
   }, []);
 
-  // Якщо користувач клацає на лівій секції (ResultsList), то закриваємо праву секцію
   const handleListClick = () => {
     if (location.pathname.includes('details')) {
       navigate(`/?page=${currentPage}`);
@@ -63,7 +60,6 @@ const App: React.FC = () => {
     currentPage * ITEMS_PER_PAGE
   );
 
-  // Використовуємо useMatch для перевірки, чи відкритий маршрут деталей
   const detailMatch = useMatch('/details/:id');
 
   return (
@@ -82,7 +78,6 @@ const App: React.FC = () => {
             <Pagination totalPages={totalPages} currentPage={currentPage} />
           )}
         </div>
-        {/* Права секція з деталями відображається лише коли маршрут відповідає /details/:id */}
         {detailMatch && (
           <div
             className="right-section"

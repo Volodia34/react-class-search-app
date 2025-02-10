@@ -3,10 +3,22 @@ import '@testing-library/jest-dom';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import DetailPanel from '@modules/resultsSection/components/DetailPanel.tsx';
 
-// Mock the fetch API
 global.fetch = jest.fn(() =>
   Promise.resolve({
     ok: true,
+    status: 200,
+    statusText: 'OK',
+    headers: new Headers(),
+    redirected: false,
+    type: 'basic',
+    url: '',
+    clone: jest.fn(),
+    body: null,
+    bodyUsed: false,
+    arrayBuffer: jest.fn(),
+    blob: jest.fn(),
+    formData: jest.fn(),
+    text: jest.fn(),
     json: () =>
       Promise.resolve({
         id: 123,

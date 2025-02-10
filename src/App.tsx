@@ -36,7 +36,11 @@ const App: React.FC = () => {
       const items: Item[] = await fetchItems(query);
       setData(items);
     } catch (err: unknown) {
-      setError(err.message);
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
     } finally {
       setLoading(false);
     }

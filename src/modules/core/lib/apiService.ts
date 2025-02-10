@@ -1,4 +1,4 @@
-import { Item } from '../../../types/Item';
+import { Item } from '../../../types/Item.ts';
 
 interface PokemonResult {
   name: string;
@@ -20,7 +20,7 @@ interface PokemonData {
 export const fetchItems = async (searchTerm: string): Promise<Item[]> => {
   const url = searchTerm
     ? `https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`
-    : 'https://pokeapi.co/api/v2/pokemon?limit=18&offset=0';
+    : 'https://pokeapi.co/api/v2/pokemon?limit=100&offset=0';
 
   const response = await fetch(url);
   if (!response.ok) {
@@ -32,9 +32,11 @@ export const fetchItems = async (searchTerm: string): Promise<Item[]> => {
   if (data.results) {
     const items = await Promise.all(
       data.results.map(async (item: PokemonResult) => {
-        const pokemonData: PokemonData = await fetch(item.url).then((res) =>
-          res.json()
-        );
+        const pokemonResponse = await fetch(item.url);
+        if (!pokemonResponse.ok) {
+          throw new Error(`HTTP error fetching pokemon detail!`);
+        }
+        const pokemonData: PokemonData = await pokemonResponse.json();
         return {
           name: item.name,
           number: pokemonData.id.toString(),

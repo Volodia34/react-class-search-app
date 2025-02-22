@@ -61,8 +61,9 @@ const DetailCard: React.FC = () => {
         setPokemon(data);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchPokemon();

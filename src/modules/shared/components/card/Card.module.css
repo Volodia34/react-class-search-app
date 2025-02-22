@@ -1,6 +1,7 @@
 .card {
   position: relative;
   border-radius: 16px;
+  cursor: pointer;
   width: 204px;
   height: 230px;
   padding: 4px 8px 0 8px;

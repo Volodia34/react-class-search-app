@@ -1,3 +1,4 @@
+/* Оригінальні стилі */
 .detail-card {
     border-radius: 5px;
     padding: 5px;
@@ -30,7 +31,6 @@
     position: relative;
     top: -90px;
 }
-
 
 .inner-content {
     margin-top: 65px;
@@ -86,7 +86,6 @@
     font-weight: bold;
     text-transform: capitalize;
 }
-
 
 .info-container {
     display: flex;
@@ -179,4 +178,79 @@
     font-weight: bold;
     width: 40px;
     text-align: right;
+}
+
+/* Переозначення для темної теми */
+:root[data-theme="dark"] .detail-card {
+    background: #1e1e1e;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    color: #f0f0f0;
+}
+
+:root[data-theme="dark"] .back-button {
+    color: #f0f0f0;
+}
+
+:root[data-theme="dark"] .bottom-section {
+    background: #2a2a2a;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+:root[data-theme="dark"] .header {
+    color: #f0f0f0;
+}
+
+:root[data-theme="dark"] .pokemon-name {
+    color: #f0f0f0;
+}
+
+:root[data-theme="dark"] .pokemon-id {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .circle-overlay {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .info-container {
+    background: #2a2a2a;
+    color: #f0f0f0;
+    border: 1px solid #444;
+}
+
+:root[data-theme="dark"] .info-title {
+    color: #f0f0f0;
+}
+
+:root[data-theme="dark"] .info-value {
+    color: #f0f0f0;
+}
+
+:root[data-theme="dark"] .info-label {
+    color: #aaa;
+}
+
+:root[data-theme="dark"] .info-divider {
+    background: #444;
+}
+
+:root[data-theme="dark"] .stats {
+    background: #2a2a2a;
+    color: #ddd;
+}
+
+:root[data-theme="dark"] .stars-title {
+    color: #f0f0f0;
+}
+
+:root[data-theme="dark"] .stat-name {
+    color: #f0f0f0;
+}
+
+:root[data-theme="dark"] .stat-bar {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .stat-value {
+    color: #f0f0f0;
 }

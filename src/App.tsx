@@ -16,6 +16,7 @@ import Flyout from '@modules/shared/components/flyout/Flyout.tsx';
 import { useFetchItemsQuery } from '@modules/core/states/apiSlice';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
+import ThemeSwitcher from '@modules/core/components/ThemeSwitcher/ThemeSwitcher.tsx';
 
 const ITEMS_PER_PAGE = 18;
 
@@ -72,6 +73,7 @@ const App: React.FC = () => {
   return (
     <div>
       <Header />
+      <ThemeSwitcher />
       <SearchForm onSearch={handleSearch} />
       <div className="app-layout" style={{ display: 'flex' }}>
         <div

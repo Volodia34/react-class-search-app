@@ -34,3 +34,23 @@
 .flyout button:hover {
     background-color: var(--identity-secondary);
 }
+
+:root[data-theme="dark"] .flyout {
+    background-color: #2e2e2e;
+    border: 1px solid #555555;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .flyout p {
+    color: #f0f0f0;
+}
+
+:root[data-theme="dark"] .flyout button {
+    background-color: var(--identity-primary);
+    color: #ffffff;
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.2), 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+:root[data-theme="dark"] .flyout button:hover {
+    background-color: var(--identity-secondary);
+}

@@ -11,7 +11,12 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .card.selected {
@@ -67,4 +72,29 @@
     height: 20px;
     cursor: pointer;
     z-index: 3;
+    background-color: var(--grayscale-white);
+    border: 1px solid var(--grayscale-wireframe);
+    border-radius: 4px;
+}
+
+:root[data-theme="dark"] .card {
+    box-shadow: 0 1px 3px 1px rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+}
+
+:root[data-theme="dark"] .number {
+    color: #cccccc;
+}
+
+:root[data-theme="dark"] .name {
+    color: #f0f0f0;
+}
+
+:root[data-theme="dark"] .checkbox {
+    background-color: #444444;
+    border: 1px solid #666666;
 }

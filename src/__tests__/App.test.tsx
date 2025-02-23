@@ -9,6 +9,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from '../App';
 import store from '@modules/core/states/store';
+import { ThemeProvider } from '@modules/core/context/ThemeContext.tsx';
 
 jest.mock('@modules/core/states/apiSlice', () => ({
   __esModule: true,
@@ -47,9 +48,11 @@ test('renders App component', async () => {
   await act(async () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ThemeProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ThemeProvider>
       </Provider>
     );
   });
@@ -60,9 +63,11 @@ test('handles search', async () => {
   await act(async () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ThemeProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ThemeProvider>
       </Provider>
     );
   });

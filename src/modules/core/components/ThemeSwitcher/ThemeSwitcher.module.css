@@ -1,0 +1,68 @@
+.themeSwitcherContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin: 16px 0;
+}
+
+.themeSwitcher {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    background-color: var(--identity-primary);
+    color: var(--grayscale-white);
+    border: 2px solid var(--grayscale-white);
+    border-radius: 8px;
+    padding: 8px 12px;
+
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2);
+
+    font-family: var(--font-family);
+}
+
+.themeLabel {
+    font-weight: 500;
+    font-size: 14px;
+    margin: 0;
+}
+
+.themeSelect {
+    background-color: var(--grayscale-white);
+    color: var(--grayscale-dark);
+    border: 1px solid var(--grayscale-wireframe);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-family: var(--font-family);
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.themeSelect:hover {
+    background-color: var(--grayscale-light);
+}
+
+/* Налаштування для темної теми */
+:root[data-theme="dark"] .themeSwitcher {
+    /* Зберігаємо фірмовий червоний фон, але текст і обводка робимо яскравими */
+    background-color: var(--grayscale-white);;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 3px 1px rgba(255, 255, 255, 0.1);
+}
+
+:root[data-theme="dark"] .themeLabel {
+    color: #ffffff;
+}
+
+:root[data-theme="dark"] .themeSelect {
+    /* Замість білого, в темній темі використовуємо темний відтінок для фонового кольору селекта */
+    background-color: #2e2e2e;
+    color: #f0f0f0;
+    border: 1px solid #444444;
+}
+
+:root[data-theme="dark"] .themeSelect:hover {
+    background-color: #555555;
+}

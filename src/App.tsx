@@ -17,6 +17,8 @@ import { useFetchItemsQuery } from '@modules/core/states/apiSlice';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import ThemeSwitcher from '@modules/core/components/ThemeSwitcher/ThemeSwitcher.tsx';
+import { useSelector } from 'react-redux';
+import { RootState } from '@modules/core/states/store.ts';
 
 const ITEMS_PER_PAGE = 18;
 
@@ -70,6 +72,10 @@ const App: React.FC = () => {
     navigate(`/?searchTerm=${query}&page=1`);
   };
 
+  const selectedItems = useSelector(
+    (state: RootState) => state.selectedItems.items
+  );
+
   return (
     <div>
       <Header />
@@ -99,7 +105,7 @@ const App: React.FC = () => {
           </div>
         )}
       </div>
-      <Flyout />
+      {selectedItems.length > 0 && <Flyout />}
       <ErrorButton />
     </div>
   );

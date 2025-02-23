@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Outlet,
   useLocation,
@@ -8,75 +8,82 @@ import {
 } from 'react-router-dom';
 import Header from '@modules/shared/components/header/Header';
 import SearchForm from '@modules/topControls/components/SearchForm';
-import { fetchItems } from '@modules/core/lib/apiService';
 import ResultsList from '@modules/resultsSection/components/ResultsList';
 import Pagination from '@modules/resultsSection/components/Pagination';
-import { Item } from './types/Item.ts';
 import './App.css';
 import ErrorButton from '@modules/core/components/ErrorButton/ErrorButton.tsx';
+import Flyout from '@modules/shared/components/flyout/Flyout.tsx';
+import { useFetchItemsQuery } from '@modules/core/states/apiSlice';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import { SerializedError } from '@reduxjs/toolkit';
 
 const ITEMS_PER_PAGE = 18;
 
 const App: React.FC = () => {
-  const [data, setData] = useState<Item[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const searchTerm = searchParams.get('searchTerm') || '';
   const pageParam = searchParams.get('page');
   const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
 
-  const performSearch = async (query: string) => {
-    setLoading(true);
-    setError(null);
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      const items: Item[] = await fetchItems(query);
-      setData(items);
-    } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('An unknown error occurred');
-      }
-    } finally {
-      setLoading(false);
+  const { data = [], error, isLoading } = useFetchItemsQuery(searchTerm);
+
+  const getErrorMessage = (
+    error: FetchBaseQueryError | SerializedError | undefined
+  ): string => {
+    if (!error) return '';
+    if ('status' in error) {
+      return `Error: ${error.status}`;
+    } else if ('message' in error) {
+      return error.message || 'An unknown error occurred';
     }
+    return 'An unknown error occurred';
   };
 
-  useEffect(() => {
-    const savedQuery = localStorage.getItem('searchTerm') || '';
-    performSearch(savedQuery);
-  }, []);
-
   const handleListClick = () => {
-    if (location.pathname.includes('details')) {
+    const searchTerm = searchParams.get('searchTerm');
+    const pageParam = searchParams.get('page');
+
+    if (location.pathname.includes('details') && searchTerm && pageParam) {
+      navigate(`/?searchTerm=${searchTerm}&page=${pageParam}`);
+    } else if (location.pathname.includes('details')) {
       navigate(`/?page=${currentPage}`);
     }
   };
 
-  const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
-  const paginatedData = data.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
-  );
+  const totalPages = Array.isArray(data)
+    ? Math.ceil(data.length / ITEMS_PER_PAGE)
+    : 0;
+  const paginatedData = Array.isArray(data)
+    ? data.slice(
+        (currentPage - 1) * ITEMS_PER_PAGE,
+        currentPage * ITEMS_PER_PAGE
+      )
+    : [];
 
   const detailMatch = useMatch('/details/:id');
+
+  const handleSearch = (query: string) => {
+    navigate(`/?searchTerm=${query}&page=1`);
+  };
 
   return (
     <div>
       <Header />
-      <SearchForm onSearch={performSearch} />
+      <SearchForm onSearch={handleSearch} />
       <div className="app-layout" style={{ display: 'flex' }}>
         <div
           className="left-section"
           style={{ flex: 1 }}
           onClick={handleListClick}
         >
-          <ResultsList loading={loading} error={error} data={paginatedData} />
+          <ResultsList
+            loading={isLoading}
+            error={getErrorMessage(error)}
+            data={paginatedData}
+          />
           {data.length > ITEMS_PER_PAGE && (
             <Pagination totalPages={totalPages} currentPage={currentPage} />
           )}
@@ -90,6 +97,7 @@ const App: React.FC = () => {
           </div>
         )}
       </div>
+      <Flyout />
       <ErrorButton />
     </div>
   );

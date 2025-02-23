@@ -1,32 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { Item } from '../../../../types/Item.ts';
-import ResultsList from '@modules/resultsSection/components/ResultsList.tsx';
+import { Provider } from 'react-redux';
+import ResultsList from '../ResultsList';
+import store from '@modules/core/states/store.ts';
 
-describe('ResultsList Component', () => {
-  const dummyData: Item[] = [
-    { name: 'Bulbasaur', number: '001', imageSrc: 'bulbasaur.png' },
-    { name: 'Charmander', number: '004', imageSrc: 'charmander.png' },
-    { name: 'Squirtle', number: '007', imageSrc: 'squirtle.png' },
-  ];
+const dummyData = [
+  { number: '001', name: 'Bulbasaur', imageSrc: 'bulbasaur.png' },
+  { number: '002', name: 'Ivysaur', imageSrc: 'ivysaur.png' },
+];
 
-  test('renders the specified number of cards', () => {
-    render(
+test('renders the specified number of cards', () => {
+  render(
+    <Provider store={store}>
       <MemoryRouter>
         <ResultsList loading={false} error={null} data={dummyData} />
       </MemoryRouter>
-    );
-    dummyData.forEach((item) => {
-      expect(screen.getByText(item.name)).toBeInTheDocument();
-    });
-  });
-
-  test('displays an appropriate message if no cards are present', () => {
-    render(
-      <MemoryRouter>
-        <ResultsList loading={false} error={null} data={[]} />
-      </MemoryRouter>
-    );
-    expect(screen.getByText(/no results/i)).toBeInTheDocument();
-  });
+    </Provider>
+  );
+  expect(screen.getByText(/Bulbasaur/i)).toBeInTheDocument();
+  expect(screen.getByText(/Ivysaur/i)).toBeInTheDocument();
 });

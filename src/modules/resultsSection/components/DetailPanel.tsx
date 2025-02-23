@@ -77,7 +77,7 @@ const DetailCard: React.FC = () => {
 
   return (
     <div className="detail-card" style={{ backgroundColor: bgColor }}>
-      <button className="back-button" onClick={() => navigate('/')}>
+      <button className="back-button" onClick={() => navigate(-1)}>
         ←
       </button>
 

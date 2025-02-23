@@ -31,4 +31,5 @@ const selectedItemsSlice = createSlice({
   },
 });
 
+export const { addItem, removeItem, clearItems } = selectedItemsSlice.actions;
 export default selectedItemsSlice.reducer;

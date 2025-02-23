@@ -1,0 +1,36 @@
+.flyout {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--grayscale-white);
+    border: 1px solid var(--grayscale-wireframe);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    z-index: 1000;
+    width: 300px;
+}
+
+.flyout p {
+    font-family: var(--font-family);
+    font-size: 16px;
+    color: var(--grayscale-dark);
+    margin-bottom: 16px;
+}
+
+.flyout button {
+    font-family: var(--font-family);
+    font-size: 14px;
+    color: var(--grayscale-white);
+    background-color: var(--identity-primary);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: background-color 0.3s;
+}
+
+.flyout button:hover {
+    background-color: var(--identity-secondary);
+}

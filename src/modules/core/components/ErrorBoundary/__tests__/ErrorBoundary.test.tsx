@@ -1,11 +1,28 @@
+import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
 import ErrorBoundary from '../ErrorBoundary';
 
-test('renders ErrorBoundary component', () => {
-  const { container } = render(
-    <ErrorBoundary>
-      <div>Child Component</div>
-    </ErrorBoundary>
-  );
-  expect(container).toHaveTextContent('Child Component');
+const ThrowError = () => {
+  throw new Error('Test error');
+};
+
+describe('ErrorBoundary Component', () => {
+  let consoleError: jest.SpyInstance;
+
+  beforeAll(() => {
+    consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    consoleError.mockRestore();
+  });
+
+  test('catches errors and displays fallback UI', () => {
+    const { getByText } = render(
+      <ErrorBoundary>
+        <ThrowError />
+      </ErrorBoundary>
+    );
+    expect(getByText(/Something went wrong/i)).toBeInTheDocument();
+  });
 });

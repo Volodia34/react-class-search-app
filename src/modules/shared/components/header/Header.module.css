@@ -1,0 +1,13 @@
+header {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 20px;
+  color: white;
+  font-family: 'Arial', sans-serif;
+}
+
+img {
+  height: 50px;
+  margin-right: 10px;
+}

@@ -28,9 +28,10 @@ export const api = createApi({
   endpoints: (builder) => ({
     fetchItems: builder.query<Item[], string | undefined>({
       query: (searchTerm) => {
-        return searchTerm
-          ? `pokemon/${searchTerm.toLowerCase()}`
-          : 'pokemon?limit=100&offset=0';
+        if (!searchTerm || searchTerm.toLowerCase() === 'null') {
+          return 'pokemon?limit=100&offset=0';
+        }
+        return `pokemon/${searchTerm.toLowerCase()}`;
       },
       transformResponse: async (response: PokemonApiResponse | PokemonData) => {
         if ('results' in response && response.results) {

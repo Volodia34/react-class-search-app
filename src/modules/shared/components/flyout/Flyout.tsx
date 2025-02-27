@@ -9,7 +9,7 @@ const Flyout: React.FC = () => {
   const selectedItems = useSelector(
     (state: RootState) => state.selectedItems.items
   );
-  const downloadRef = useRef<HTMLAnchorElement>(null);
+  const downloadRef = useRef<HTMLAnchorElement | null>(null);
 
   const handleUnselectAll = () => {
     dispatch(clearItems());
@@ -43,9 +43,7 @@ const Flyout: React.FC = () => {
       <button className={styles.button} onClick={handleDownload}>
         Download
       </button>
-      <a ref={downloadRef} style={{ display: 'none' }}>
-        Download
-      </a>
+      <a ref={downloadRef} style={{ display: 'none' }} />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearItems } from '@modules/core/states/selectedItemsSlice';
 import { RootState } from '@modules/core/states/store.ts';
@@ -9,6 +9,7 @@ const Flyout: React.FC = () => {
   const selectedItems = useSelector(
     (state: RootState) => state.selectedItems.items
   );
+  const downloadRef = useRef<HTMLAnchorElement>(null);
 
   const handleUnselectAll = () => {
     dispatch(clearItems());
@@ -24,11 +25,13 @@ const Flyout: React.FC = () => {
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${selectedItems.length}_items.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
+
+    if (downloadRef.current) {
+      downloadRef.current.href = url;
+      downloadRef.current.download = `${selectedItems.length}_items.csv`;
+      downloadRef.current.click();
+      URL.revokeObjectURL(url);
+    }
   };
 
   return (
@@ -40,6 +43,9 @@ const Flyout: React.FC = () => {
       <button className={styles.button} onClick={handleDownload}>
         Download
       </button>
+      <a ref={downloadRef} style={{ display: 'none' }}>
+        Download
+      </a>
     </div>
   );
 };

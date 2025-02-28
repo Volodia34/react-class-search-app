@@ -43,9 +43,7 @@
     background-color: var(--grayscale-light);
 }
 
-/* Налаштування для темної теми */
 :root[data-theme="dark"] .themeSwitcher {
-    /* Зберігаємо фірмовий червоний фон, але текст і обводка робимо яскравими */
     background-color: var(--grayscale-white);;
     color: #ffffff;
     border: 2px solid #ffffff;
@@ -57,7 +55,6 @@
 }
 
 :root[data-theme="dark"] .themeSelect {
-    /* Замість білого, в темній темі використовуємо темний відтінок для фонового кольору селекта */
     background-color: #2e2e2e;
     color: #f0f0f0;
     border: 1px solid #444444;

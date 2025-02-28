@@ -54,3 +54,37 @@
 :root[data-theme="dark"] .flyout button:hover {
     background-color: var(--identity-secondary);
 }
+
+@media (max-width: 768px) {
+    .flyout {
+        width: 250px;
+        padding: 12px;
+    }
+
+    .flyout p {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+
+    .flyout button {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flyout {
+        width: 200px;
+        padding: 10px;
+    }
+
+    .flyout p {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .flyout button {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+}

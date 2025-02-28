@@ -5,9 +5,29 @@ header {
   padding: 10px 20px;
   color: white;
   font-family: 'Arial', sans-serif;
+  max-width: 800px;
+  height: auto;
 }
 
 img {
   height: 50px;
   margin-right: 10px;
+}
+
+@media (max-width: 700px) {
+  header {
+    max-width: 328px;
+    height: 45px;
+    padding-bottom: 0;
+    gap: 2px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
 }

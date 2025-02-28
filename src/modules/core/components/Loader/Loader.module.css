@@ -32,3 +32,33 @@
     0%, 100% { opacity: 0.6; }
     50% { opacity: 1; }
 }
+
+@media (max-width: 768px) {
+    .spinner {
+        width: 40px;
+        height: 40px;
+    }
+
+    .loadingText {
+        font-size: 1em;
+    }
+
+    .loaderContainer {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .spinner {
+        width: 30px;
+        height: 30px;
+    }
+
+    .loadingText {
+        font-size: 0.9em;
+    }
+
+    .loaderContainer {
+        padding: 10px;
+    }
+}

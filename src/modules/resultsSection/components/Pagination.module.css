@@ -63,3 +63,25 @@
     transform: scale(1.05);
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
 }
+
+@media (max-width: 768px) {
+    .paginationWrapper {
+        padding: 8px;
+    }
+
+    .pageButton {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .paginationWrapper {
+        padding: 6px;
+    }
+
+    .pageButton {
+        padding: 6px 10px;
+        font-size: 12px;
+    }
+}

@@ -2,8 +2,8 @@
     position: relative;
     border-radius: 16px;
     cursor: pointer;
-    width: 204px;
-    height: 230px;
+    width: clamp(104px, 20vw, 204px);
+    height: clamp(114px, 22vw, 230px);
     padding: 4px 8px 0 8px;
     box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2);
     background: var(--grayscale-white);
@@ -39,7 +39,7 @@
     font-family: var(--font-family);
     font-weight: 400;
     margin: 5px 0;
-    font-size: 16px;
+    font-size: clamp(8px, 1.5vw, 16px);
     line-height: 150%;
     text-align: right;
     color: var(--grayscale-medium);
@@ -47,8 +47,8 @@
 }
 
 .cardImg {
-    width: 150px;
-    height: 150px;
+    width: clamp(72px, 15vw, 150px);
+    height: clamp(72px, 15vw, 150px);
     margin: 0 auto;
     z-index: 2;
 }
@@ -56,7 +56,7 @@
 .name {
     font-family: var(--font-family);
     font-weight: 400;
-    font-size: 25px;
+    font-size: clamp(10px, 2vw, 25px);
     line-height: 160%;
     text-align: center;
     color: var(--grayscale-dark);
@@ -68,13 +68,22 @@
     position: absolute;
     top: 8px;
     left: 8px;
-    width: 20px;
-    height: 20px;
+    width: clamp(16px, 2vw, 20px);
+    height: clamp(16px, 2vw, 20px);
     cursor: pointer;
     z-index: 3;
     background-color: var(--grayscale-white);
     border: 1px solid var(--grayscale-wireframe);
     border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+    .checkbox {
+        top: 6px;
+        left: 6px;
+        width: clamp(12px, 1.5vw, 16px);
+        height: clamp(12px, 1.5vw, 16px);
+    }
 }
 
 :root[data-theme="dark"] .card {

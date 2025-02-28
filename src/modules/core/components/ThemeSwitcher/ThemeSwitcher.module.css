@@ -44,7 +44,7 @@
 }
 
 :root[data-theme="dark"] .themeSwitcher {
-    background-color: var(--grayscale-white);;
+    background-color: var(--grayscale-white);
     color: #ffffff;
     border: 2px solid #ffffff;
     box-shadow: 0 1px 3px 1px rgba(255, 255, 255, 0.1);
@@ -62,4 +62,34 @@
 
 :root[data-theme="dark"] .themeSelect:hover {
     background-color: #555555;
+}
+
+@media (max-width: 768px) {
+    .themeSwitcher {
+        padding: 6px 10px;
+    }
+
+    .themeLabel {
+        font-size: 12px;
+    }
+
+    .themeSelect {
+        padding: 4px 6px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .themeSwitcher {
+        padding: 4px 8px;
+    }
+
+    .themeLabel {
+        font-size: 10px;
+    }
+
+    .themeSelect {
+        padding: 4px 6px;
+        font-size: 10px;
+    }
 }

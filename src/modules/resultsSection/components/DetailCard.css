@@ -291,6 +291,11 @@
         height: 220px;
     }
 
+    .info-title {
+        font-size: 25px;
+        margin: 15px 0;
+    }
+
     .pokemon-name {
         font-size: 26px;
     }
@@ -305,12 +310,21 @@
     }
     .info-container {
         padding: 6px 8px;
-        font-size: 12px;
+        font-size: 10px;
         gap: 8px;
     }
 
     .stats {
         padding: 4px;
+    }
+
+    .stars-title {
+        font-size: 25px;
+        margin: 20px;
+    }
+
+    .stat-name {
+        font-size: 15px;
     }
 
     .stat-bar {

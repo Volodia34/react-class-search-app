@@ -84,6 +84,10 @@
         width: clamp(12px, 1.5vw, 16px);
         height: clamp(12px, 1.5vw, 16px);
     }
+
+    .number {
+        margin-bottom: 0;
+    }
 }
 
 :root[data-theme="dark"] .card {
@@ -108,53 +112,49 @@
     border: 1px solid #666666;
 }
 
-@media (max-width: 420px) {
+@media (max-width: 425px) {
     .card {
-        width: clamp(90px, 21vw, 150px);
-        height: clamp(100px, 23vw, 180px);
+        width: clamp(100px, 21vw, 160px);
+        height: clamp(110px, 23vw, 190px);
     }
 
     .cardImg {
-        width: clamp(55px, 11vw, 120px);
-        height: clamp(55px, 11vw, 120px);
+        width: clamp(70px, 12vw, 130px);
+        height: clamp(69px, 12vw, 130px);
     }
 
     .number {
-        font-size: clamp(7px, 1.1vw, 15px);
+        font-size: clamp(9px, 1.3vw, 16px);
     }
 
     .name {
-        font-size: clamp(9px, 1.4vw, 18px);
+        font-size: clamp(14px, 1.5vw, 18px);
     }
-
     .checkbox {
-        width: clamp(11px, 1.4vw, 16px);
-        height: clamp(11px, 1.4vw, 16px);
+        width: clamp(10px, 1.6vw, 18px);
+        height: clamp(10px, 1.6vw, 18px);
     }
 }
 
 
-
-
-@media (max-width: 375px) {
+@media (max-width: 405px) {
     .card {
-        width: clamp(80px, 20vw, 150px);
-        height: clamp(90px, 22vw, 180px);
+        width: clamp(85px, 19vw, 145px);
+        height: clamp(95px, 21vw, 175px);
     }
 
     .cardImg {
-        width: clamp(50px, 10vw, 120px);
-        height: clamp(50px, 10vw, 120px);
+        width: clamp(55px, 10vw, 115px);
+        height: clamp(55px, 10vw, 115px);
     }
 
     .number {
-        font-size: clamp(6px, 1vw, 14px);
+        font-size: clamp(7px, 1vw, 14px);
     }
 
     .name {
-        font-size: clamp(8px, 1.2vw, 18px);
+        font-size: clamp(12px, 1.5vw, 18px);
     }
-
     .checkbox {
         width: clamp(10px, 1.2vw, 16px);
         height: clamp(10px, 1.2vw, 16px);

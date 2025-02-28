@@ -107,3 +107,56 @@
     background-color: #444444;
     border: 1px solid #666666;
 }
+
+@media (max-width: 420px) {
+    .card {
+        width: clamp(90px, 21vw, 150px);
+        height: clamp(100px, 23vw, 180px);
+    }
+
+    .cardImg {
+        width: clamp(55px, 11vw, 120px);
+        height: clamp(55px, 11vw, 120px);
+    }
+
+    .number {
+        font-size: clamp(7px, 1.1vw, 15px);
+    }
+
+    .name {
+        font-size: clamp(9px, 1.4vw, 18px);
+    }
+
+    .checkbox {
+        width: clamp(11px, 1.4vw, 16px);
+        height: clamp(11px, 1.4vw, 16px);
+    }
+}
+
+
+
+
+@media (max-width: 375px) {
+    .card {
+        width: clamp(80px, 20vw, 150px);
+        height: clamp(90px, 22vw, 180px);
+    }
+
+    .cardImg {
+        width: clamp(50px, 10vw, 120px);
+        height: clamp(50px, 10vw, 120px);
+    }
+
+    .number {
+        font-size: clamp(6px, 1vw, 14px);
+    }
+
+    .name {
+        font-size: clamp(8px, 1.2vw, 18px);
+    }
+
+    .checkbox {
+        width: clamp(10px, 1.2vw, 16px);
+        height: clamp(10px, 1.2vw, 16px);
+    }
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Outlet,
   useLocation,
@@ -26,6 +26,7 @@ const App: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isMobile] = useState(window.innerWidth <= 768);
 
   const searchTerm = searchParams.get('searchTerm') || '';
   const pageParam = searchParams.get('page');
@@ -96,7 +97,14 @@ const App: React.FC = () => {
             <Pagination totalPages={totalPages} currentPage={currentPage} />
           )}
         </div>
-        {detailMatch && (
+        {detailMatch && isMobile && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <Outlet />
+            </div>
+          </div>
+        )}
+        {detailMatch && !isMobile && (
           <div
             className="right-section"
             style={{ width: '600px', borderLeft: '1px solid #ccc' }}

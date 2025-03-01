@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearItems } from '@modules/core/states/selectedItemsSlice';
 import { RootState } from '@modules/core/states/store.ts';
@@ -9,6 +9,7 @@ const Flyout: React.FC = () => {
   const selectedItems = useSelector(
     (state: RootState) => state.selectedItems.items
   );
+  const [isVisible, setIsVisible] = useState(false);
   const downloadRef = useRef<HTMLAnchorElement | null>(null);
 
   const handleUnselectAll = () => {
@@ -34,8 +35,18 @@ const Flyout: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    if (selectedItems.length > 0) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  }, [selectedItems]);
+
   return (
-    <div className={styles.flyout}>
+    <div
+      className={`${styles.flyout} ${isVisible ? styles.show : styles.hide}`}
+    >
       <p>{selectedItems.length} items are selected</p>
       <button className={styles.button} onClick={handleUnselectAll}>
         Unselect all

@@ -49,6 +49,27 @@ const DetailCard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
+  const [animatedStats, setAnimatedStats] = useState<{ [key: string]: number }>(
+    {}
+  );
+
+  useEffect(() => {
+    if (pokemon) {
+      setAnimatedStats({});
+      setTimeout(() => {
+        setAnimatedStats(
+          pokemon.stats.reduce(
+            (acc, stat) => {
+              acc[stat.stat.name] = (stat.base_stat / 150) * 100;
+              return acc;
+            },
+            {} as { [key: string]: number }
+          )
+        );
+      }, 200);
+    }
+  }, [pokemon]);
+
   useEffect(() => {
     const fetchPokemon = async () => {
       setLoading(true);
@@ -150,7 +171,7 @@ const DetailCard: React.FC = () => {
                   <div
                     className="stat-fill"
                     style={{
-                      width: `${(stat.base_stat / 150) * 100}%`,
+                      width: `${animatedStats[stat.stat.name] || 0}%`,
                       backgroundColor: bgColor,
                     }}
                   ></div>

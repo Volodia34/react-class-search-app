@@ -9,6 +9,19 @@
     padding: 16px;
     z-index: 1000;
     width: 300px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.flyout.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.flyout.hide {
+    opacity: 0;
+    transform: translateY(20px);
 }
 
 .flyout p {

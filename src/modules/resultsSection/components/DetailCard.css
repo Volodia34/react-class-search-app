@@ -75,6 +75,36 @@
     z-index: 2;
 }
 
+.arrow-button {
+    position: absolute;
+    top: 28%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.arrow-img {
+    width: 35px;
+    height: 35px;
+}
+
+.left-arrow {
+    left: 20px;
+}
+
+.right-arrow {
+    right: 20px;
+}
+
+.pokemon-image {
+    display: block;
+    margin: 0 auto;
+}
+
 .types {
     display: flex;
     justify-content: center;

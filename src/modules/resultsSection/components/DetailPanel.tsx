@@ -3,6 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './DetailCard.css';
 import weight from '../../../assets/weight.svg';
 import height from '../../../assets/straighten.svg';
+import leftArrow from '../../../assets/left.svg';
+import rightArrow from '../../../assets/right.svg';
 
 interface PokemonData {
   id: number;
@@ -110,11 +112,25 @@ const DetailCard: React.FC = () => {
       </div>
 
       <div className="circle-overlay"></div>
+      <button
+        className="arrow-button left-arrow"
+        onClick={() => navigate(`/details/${Number(id) - 1}`)}
+        style={{ display: Number(id) === 1 ? 'none' : 'block' }}
+      >
+        <img src={leftArrow} alt="Previous" className="arrow-img" />
+      </button>
       <img
         src={pokemon.sprites.other['official-artwork'].front_default}
         alt={pokemon.name}
         className="pokemon-image"
       />
+      <button
+        className="arrow-button right-arrow"
+        onClick={() => navigate(`/details/${Number(id) + 1}`)}
+        style={{ display: Number(id) === 100 ? 'none' : 'block' }}
+      >
+        <img src={rightArrow} alt="Next" className="arrow-img" />
+      </button>
 
       <div className="bottom-section">
         <div className="inner-content">

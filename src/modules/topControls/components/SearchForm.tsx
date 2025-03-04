@@ -3,6 +3,7 @@ import styles from './SearchForm.module.css';
 import { trimInput } from '@modules/core/utils/stringHelpers';
 import { useStoredSearchQuery } from '@modules/core/hooks/useStoredSearchQuery.ts';
 import closeIcon from '../../../assets/close.svg';
+import SortDropdown from '@modules/shared/components/SortDropdown/SortDropdown.tsx';
 
 interface SearchFormProps {
   onSearch: (query: string) => void;
@@ -35,6 +36,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
 
   return (
     <div className={styles.searchForm}>
+      <SortDropdown />
       <div className={styles.inputContainer}>
         <input
           type="text"

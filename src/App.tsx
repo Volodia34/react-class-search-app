@@ -29,10 +29,20 @@ const App: React.FC = () => {
   const [isMobile] = useState(window.innerWidth <= 768);
 
   const searchTerm = searchParams.get('searchTerm') || '';
+  const sortOption = searchParams.get('sort') || 'number';
   const pageParam = searchParams.get('page');
   const currentPage = pageParam ? parseInt(pageParam, 10) : 1;
 
-  const { data = [], error, isLoading } = useFetchItemsQuery(searchTerm);
+  const {
+    data = { items: [], totalCount: 0 },
+    error,
+    isLoading,
+  } = useFetchItemsQuery({
+    searchTerm,
+    sort: sortOption,
+    limit: ITEMS_PER_PAGE,
+    offset: (currentPage - 1) * ITEMS_PER_PAGE,
+  });
 
   const getErrorMessage = (
     error: FetchBaseQueryError | SerializedError | undefined
@@ -57,15 +67,8 @@ const App: React.FC = () => {
     }
   };
 
-  const totalPages = Array.isArray(data)
-    ? Math.ceil(data.length / ITEMS_PER_PAGE)
-    : 0;
-  const paginatedData = Array.isArray(data)
-    ? data.slice(
-        (currentPage - 1) * ITEMS_PER_PAGE,
-        currentPage * ITEMS_PER_PAGE
-      )
-    : [];
+  const totalPages = Math.ceil(data.totalCount / ITEMS_PER_PAGE);
+  const paginatedData = data.items;
 
   const detailMatch = useMatch('/details/:id');
 
@@ -93,7 +96,7 @@ const App: React.FC = () => {
             error={getErrorMessage(error)}
             data={paginatedData}
           />
-          {data.length > ITEMS_PER_PAGE && (
+          {data.totalCount > ITEMS_PER_PAGE && (
             <Pagination totalPages={totalPages} currentPage={currentPage} />
           )}
         </div>

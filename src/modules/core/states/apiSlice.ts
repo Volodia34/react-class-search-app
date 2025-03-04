@@ -20,23 +20,30 @@ interface PokemonData {
 
 interface PokemonApiResponse {
   results?: PokemonResult[];
+  count: number;
 }
 
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://pokeapi.co/api/v2/' }),
   endpoints: (builder) => ({
-    fetchItems: builder.query<Item[], string | undefined>({
-      query: (searchTerm) => {
+    fetchItems: builder.query<
+      { items: Item[]; totalCount: number },
+      { searchTerm?: string; sort?: string; limit: number; offset: number }
+    >({
+      query: ({ searchTerm, limit, offset }) => {
         if (!searchTerm || searchTerm.toLowerCase() === 'null') {
-          return 'pokemon?limit=100&offset=0';
+          return `pokemon?limit=${limit}&offset=${offset}`;
         }
         return `pokemon/${searchTerm.toLowerCase()}`;
       },
-      transformResponse: async (response: PokemonApiResponse | PokemonData) => {
+      transformResponse: async (
+        response: PokemonApiResponse | PokemonData,
+        _,
+        arg
+      ) => {
         if ('results' in response && response.results) {
-          // If `results` is available, fetch detailed Pokemon data
-          const items = await Promise.all(
+          let items = await Promise.all(
             response.results.map(async (item: PokemonResult) => {
               const pokemonResponse = await fetch(item.url);
               if (!pokemonResponse.ok) {
@@ -51,17 +58,23 @@ export const api = createApi({
               };
             })
           );
-          return items;
+          if (arg.sort === 'name') {
+            items = items.sort((a, b) => a.name.localeCompare(b.name));
+          }
+          return { items, totalCount: response.count };
         } else {
           const pokemonData = response as PokemonData;
-          return [
-            {
-              name: pokemonData.name,
-              number: pokemonData.id.toString(),
-              imageSrc:
-                pokemonData.sprites.other['official-artwork'].front_default,
-            },
-          ];
+          return {
+            items: [
+              {
+                name: pokemonData.name,
+                number: pokemonData.id.toString(),
+                imageSrc:
+                  pokemonData.sprites.other['official-artwork'].front_default,
+              },
+            ],
+            totalCount: 1,
+          };
         }
       },
     }),

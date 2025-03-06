@@ -83,9 +83,11 @@ test('renders pagination and flyout', async () => {
   await act(async () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ThemeProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ThemeProvider>
       </Provider>
     );
   });

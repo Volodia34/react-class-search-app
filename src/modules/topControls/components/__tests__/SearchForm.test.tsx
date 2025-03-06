@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import SearchForm from '@modules/topControls/components/SearchForm';
 
 describe('SearchForm component', () => {
@@ -8,7 +9,11 @@ describe('SearchForm component', () => {
 
   test('clicking the Search button saves the entered value to localStorage', () => {
     const onSearchMock = jest.fn();
-    render(<SearchForm onSearch={onSearchMock} />);
+    render(
+      <MemoryRouter>
+        <SearchForm onSearch={onSearchMock} />
+      </MemoryRouter>
+    );
     const input = screen.getByPlaceholderText(/search/i);
     const button = screen.getByRole('button', { name: /search/i });
 
@@ -21,7 +26,11 @@ describe('SearchForm component', () => {
 
   test('retrieves the value from localStorage upon mounting', () => {
     localStorage.setItem('searchTerm', 'stored query');
-    render(<SearchForm onSearch={() => {}} />);
+    render(
+      <MemoryRouter>
+        <SearchForm onSearch={() => {}} />
+      </MemoryRouter>
+    );
     const input = screen.getByPlaceholderText(/search/i);
     expect(input).toHaveValue('stored query');
   });

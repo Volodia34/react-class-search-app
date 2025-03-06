@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/16</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>1/4</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">20% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>1/5</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>2/4</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">60% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>3/5</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/16</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
@@ -137,31 +137,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -202,14 +202,14 @@ const SearchForm: React.FC&lt;SearchFormProps&gt; = ({ onSearch }) =&gt; {
   const [query, setQuery] = useStoredSearchQuery('searchTerm');
   const [showClearButton, setShowClearButton] = useState(false);
 &nbsp;
-  const handleInputChange = <span class="fstat-no" title="function not covered" >(e</span>: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
-<span class="cstat-no" title="statement not covered" >    setQuery(e.target.value);</span>
-<span class="cstat-no" title="statement not covered" >    setShowClearButton(e.target.value.length &gt; 0);</span>
+  const handleInputChange = (e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+    setQuery(e.target.value);
+    setShowClearButton(e.target.value.length &gt; 0);
   };
 &nbsp;
-  const handleSearch = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
-    const trimmedQuery = <span class="cstat-no" title="statement not covered" >trimInput(query);</span>
-<span class="cstat-no" title="statement not covered" >    onSearch(trimmedQuery);</span>
+  const handleSearch = () =&gt; {
+    const trimmedQuery = trimInput(query);
+    onSearch(trimmedQuery);
   };
 &nbsp;
   const handleKeyPress = <span class="fstat-no" title="function not covered" >(e</span>: React.KeyboardEvent&lt;HTMLInputElement&gt;) =&gt; {
@@ -236,7 +236,7 @@ const SearchForm: React.FC&lt;SearchFormProps&gt; = ({ onSearch }) =&gt; {
           className={styles.searchInput}
         /&gt;
         {showClearButton &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;button onClick={clearInput} className={styles.clearButton}&gt;</span>
+          &lt;button onClick={clearInput} className={styles.clearButton}&gt;
             &lt;img src={closeIcon} alt="Clear" /&gt;
           &lt;/button&gt;
         )}
@@ -256,7 +256,7 @@ export default SearchForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-03-04T14:15:54.141Z
+                at 2025-03-06T16:05:22.676Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>

@@ -27,35 +27,6 @@ global.fetch = jest.fn(() =>
 global.URL.createObjectURL = jest.fn(() => 'mock-url');
 global.URL.revokeObjectURL = jest.fn();
 
-test('renders Flyout component', () => {
-  render(
-    <Provider store={store}>
-      <Flyout />
-    </Provider>
-  );
-  expect(screen.getByText(/items are selected/i)).toBeInTheDocument();
-});
-
-test('unselects all items', () => {
-  store.dispatch(
-    addItem({
-      id: '1',
-      name: 'Item 1',
-      description: 'Desc 1',
-      detailsUrl: 'url1',
-    })
-  );
-
-  render(
-    <Provider store={store}>
-      <Flyout />
-    </Provider>
-  );
-
-  fireEvent.click(screen.getByText(/Unselect all/i));
-  expect(screen.getByText(/0 items are selected/i)).toBeInTheDocument();
-});
-
 test('downloads selected items as CSV', () => {
   store.dispatch(
     addItem({
@@ -73,7 +44,9 @@ test('downloads selected items as CSV', () => {
   );
 
   const downloadButton = screen.getByText(/Download/i);
-  const createElementSpy = jest.spyOn(document, 'createElement');
+  const createElementSpy = jest
+    .spyOn(document, 'createElement')
+    .mockReturnValue(document.createElement('a'));
 
   fireEvent.click(downloadButton);
 

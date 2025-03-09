@@ -1,18 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import styles from './SortDropdown.module.css';
-import { useSearchParams } from 'react-router-dom';
 import tag from '../../../../assets/tag.svg';
 import text from '../../../../assets/text.svg';
+import Image from 'next/image';
 
 const SortDropdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const selectedSort = searchParams.get('sort') || 'number';
+  const selectedSort = router.query.sort || 'number';
 
   const handleSortChange = (value: string) => {
-    setSearchParams({ sort: value, searchTerm: '' });
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, sort: value, searchTerm: '' },
+    });
     setIsOpen(false);
   };
 
@@ -32,7 +36,7 @@ const SortDropdown: React.FC = () => {
   return (
     <div className={styles.sortDropdown} ref={dropdownRef}>
       <button className={styles.sortButton} onClick={() => setIsOpen(!isOpen)}>
-        <img
+        <Image
           className={styles.sortImg}
           src={selectedSort === 'number' ? tag : text}
           alt=""

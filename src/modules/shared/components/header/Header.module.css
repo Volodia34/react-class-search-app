@@ -1,4 +1,4 @@
-header {
+.header {
   display: flex;
   align-items: center;
   gap: 13px;
@@ -9,28 +9,28 @@ header {
   height: auto;
 }
 
-img {
+.img {
   height: 50px;
   margin-right: 10px;
 }
 
-a {
+.link {
   text-decoration: none;
 }
 
 @media (max-width: 700px) {
-  header {
+  .header {
     max-width: 328px;
     height: 45px;
     padding-bottom: 0;
     gap: 2px;
   }
 
-  h1 {
+  .h1 {
     font-size: 30px;
   }
 
-  img {
+  .img {
     width: 30px;
     height: 30px;
   }

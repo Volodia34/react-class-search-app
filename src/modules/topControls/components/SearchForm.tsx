@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styles from './SearchForm.module.css';
 import { trimInput } from '@modules/core/utils/stringHelpers';
-import { useStoredSearchQuery } from '@modules/core/hooks/useStoredSearchQuery.ts';
 import closeIcon from '../../../assets/close.svg';
 import SortDropdown from '@modules/shared/components/SortDropdown/SortDropdown.tsx';
+import { useStoredSearchQuery } from '../../core/hooks/useStoredSearchQuery';
+import Image from 'next/image';
 
 interface SearchFormProps {
   onSearch: (query: string) => void;
@@ -48,7 +49,7 @@ const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
         />
         {showClearButton && (
           <button onClick={clearInput} className={styles.clearButton}>
-            <img src={closeIcon} alt="Clear" />
+            <Image src={closeIcon} alt="Clear" />
           </button>
         )}
       </div>

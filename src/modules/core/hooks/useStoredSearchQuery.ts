@@ -3,19 +3,24 @@ import { useState, useEffect } from 'react';
 export const useStoredSearchQuery = (
   key: string = 'searchTerm'
 ): [string, (newQuery: string) => void] => {
+  const isBrowser = typeof window !== 'undefined';
   const [query, setQuery] = useState<string>(
-    () => localStorage.getItem(key) || ''
+    () => (isBrowser ? localStorage.getItem(key) : '') || ''
   );
 
   useEffect(() => {
-    const stored = localStorage.getItem(key);
-    if (stored && stored !== query) {
-      setQuery(stored);
+    if (isBrowser) {
+      const stored = localStorage.getItem(key);
+      if (stored && stored !== query) {
+        setQuery(stored);
+      }
     }
-  }, [key]);
+  }, [key, isBrowser]);
 
   const updateQuery = (newQuery: string) => {
-    localStorage.setItem(key, newQuery);
+    if (isBrowser) {
+      localStorage.setItem(key, newQuery);
+    }
     setQuery(newQuery);
   };
 

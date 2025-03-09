@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import './DetailCard.css';
+import { useRouter } from 'next/router';
 import weight from '../../../assets/weight.svg';
 import height from '../../../assets/straighten.svg';
 import leftArrow from '../../../assets/left.svg';
 import rightArrow from '../../../assets/right.svg';
+import Image from 'next/image';
 
 interface PokemonData {
   id: number;
@@ -46,10 +46,10 @@ const typeColors: { [key: string]: string } = {
 };
 
 const DetailCard: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const router = useRouter();
+  const { id } = router.query;
   const [pokemon, setPokemon] = useState<PokemonData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate();
 
   const [animatedStats, setAnimatedStats] = useState<{ [key: string]: number }>(
     {}
@@ -89,7 +89,9 @@ const DetailCard: React.FC = () => {
       }
     };
 
-    fetchPokemon();
+    if (id) {
+      fetchPokemon();
+    }
   }, [id]);
 
   if (loading) return <p>Loading...</p>;
@@ -100,7 +102,7 @@ const DetailCard: React.FC = () => {
 
   return (
     <div className="detail-card" style={{ backgroundColor: bgColor }}>
-      <button className="back-button" onClick={() => navigate(-1)}>
+      <button className="back-button" onClick={() => router.back()}>
         ←
       </button>
 
@@ -114,22 +116,36 @@ const DetailCard: React.FC = () => {
       <div className="circle-overlay"></div>
       <button
         className="arrow-button left-arrow"
-        onClick={() => navigate(`/details/${Number(id) - 1}`)}
+        onClick={() => router.push(`/details/${Number(id) - 1}`)}
         style={{ display: Number(id) === 1 ? 'none' : 'block' }}
       >
-        <img src={leftArrow} alt="Previous" className="arrow-img" />
+        <Image
+          src={leftArrow}
+          alt="Previous"
+          className="arrow-img"
+          width={34}
+          height={34}
+        />
       </button>
-      <img
+      <Image
         src={pokemon.sprites.other['official-artwork'].front_default}
         alt={pokemon.name}
         className="pokemon-image"
+        width={300}
+        height={300}
       />
       <button
         className="arrow-button right-arrow"
-        onClick={() => navigate(`/details/${Number(id) + 1}`)}
+        onClick={() => router.push(`/details/${Number(id) + 1}`)}
         style={{ display: Number(id) === 100 ? 'none' : 'block' }}
       >
-        <img src={rightArrow} alt="Next" className="arrow-img" />
+        <Image
+          src={rightArrow}
+          alt="Next"
+          className="arrow-img"
+          width={34}
+          height={34}
+        />
       </button>
 
       <div className="bottom-section">
@@ -150,7 +166,7 @@ const DetailCard: React.FC = () => {
           </h3>
           <div className="info-container">
             <div className="info-item">
-              <img src={weight} alt="weight" className="info-icon" />
+              <Image src={weight} alt="weight" className="info-icon" />
               <p className="info-value">{pokemon.weight / 10} kg</p>
               <span className="info-label">Weight</span>
             </div>
@@ -158,7 +174,13 @@ const DetailCard: React.FC = () => {
             <div className="info-divider"></div>
 
             <div className="info-item">
-              <img src={height} alt="height" className="info-icon" />
+              <Image
+                src={height}
+                alt="height"
+                className="info-icon"
+                width={24}
+                height={24}
+              />
               <p className="info-value">{pokemon.height / 10} m</p>
               <span className="info-label">Height</span>
             </div>

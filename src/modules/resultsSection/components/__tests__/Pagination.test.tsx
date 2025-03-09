@@ -1,42 +1,26 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter, useLocation } from 'react-router-dom';
-import Pagination from '@modules/resultsSection/components/Pagination.tsx';
+import Pagination from '../Pagination';
+import { useRouter } from 'next/router';
 
-interface TestComponentProps {
-  totalPages: number;
-  currentPage: number;
-}
-
-const TestComponent: React.FC<TestComponentProps> = ({
-  totalPages,
-  currentPage,
-}) => {
-  const location = useLocation();
-  return (
-    <div>
-      <Pagination totalPages={totalPages} currentPage={currentPage} />
-      <div data-testid="location-display">{location.search}</div>
-    </div>
-  );
-};
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
 
 describe('Pagination Component', () => {
   test('updates URL query parameter when page changes', () => {
-    const totalPages = 5;
-    const currentPage = 1;
-    render(
-      <MemoryRouter initialEntries={['/?page=1']}>
-        <TestComponent totalPages={totalPages} currentPage={currentPage} />
-      </MemoryRouter>
-    );
+    const push = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({
+      query: { page: '1' },
+      push,
+      pathname: '/',
+    });
 
-    // Знаходимо кнопку для сторінки "2" (якщо вона не disabled)
+    render(<Pagination totalPages={3} currentPage={1} />);
     const page2Button = screen.getByText('2');
     fireEvent.click(page2Button);
-
-    // Після кліку у URL має бути "page=2"
-    const locationDisplay = screen.getByTestId('location-display');
-    expect(locationDisplay.textContent).toContain('page=2');
+    expect(push).toHaveBeenCalledWith({
+      pathname: '/',
+      query: { page: '2' },
+    });
   });
 });

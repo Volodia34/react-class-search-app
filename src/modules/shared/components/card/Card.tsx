@@ -3,26 +3,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@modules/core/states/store.ts';
 import { addItem, removeItem } from '@modules/core/states/selectedItemsSlice';
 import styles from './Card.module.css';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { Item } from '../../../../types/Item.ts';
 
 type CardProps = Item;
 
 const Card: React.FC<CardProps> = ({ number, imageSrc, name }) => {
   const formattedNumber = `#${number.padStart(3, '0')}`;
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const router = useRouter();
   const dispatch = useDispatch();
   const selectedItems = useSelector(
     (state: RootState) => state.selectedItems.items
   );
   const isSelected = selectedItems.some((item) => item.id === number);
-  const currentSearchTerm = searchParams.get('searchTerm');
-  const currentPage = searchParams.get('page') || '1';
+  const currentSearchTerm = router.query.searchTerm as string;
+  const currentPage = (router.query.page as string) || '1';
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigate(
+    router.push(
       `/details/${number}?searchTerm=${currentSearchTerm}&page=${currentPage}`
     );
   };

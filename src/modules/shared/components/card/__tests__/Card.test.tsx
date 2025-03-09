@@ -1,18 +1,16 @@
-// src/modules/shared/components/card/__tests__/Card.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import Card from '../Card';
 
 const mockStore = configureStore([]);
-const mockedUsedNavigate = jest.fn();
+const mockedPush = jest.fn();
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockedUsedNavigate,
-  // Повертаємо параметри з searchTerm як порожній рядок
-  useSearchParams: () => [new URLSearchParams('searchTerm=&page=1'), jest.fn()],
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    push: mockedPush,
+    query: { searchTerm: '', page: '1' },
+  }),
 }));
 
 describe('Card Component', () => {
@@ -29,15 +27,13 @@ describe('Card Component', () => {
       selectedItems: { items: [] },
     });
     store.dispatch = jest.fn();
-    mockedUsedNavigate.mockReset();
+    mockedPush.mockReset();
   });
 
   test('renders relevant card data', () => {
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <Card {...dummyCard} />
-        </MemoryRouter>
+        <Card {...dummyCard} />
       </Provider>
     );
 
@@ -49,14 +45,12 @@ describe('Card Component', () => {
   test('navigates to details page on card click', () => {
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <Card {...dummyCard} />
-        </MemoryRouter>
+        <Card {...dummyCard} />
       </Provider>
     );
 
     fireEvent.click(screen.getByText(dummyCard.name));
-    expect(mockedUsedNavigate).toHaveBeenCalledWith(
+    expect(mockedPush).toHaveBeenCalledWith(
       `/details/${dummyCard.number}?searchTerm=&page=1`
     );
   });
@@ -64,9 +58,7 @@ describe('Card Component', () => {
   test('toggles selection state on checkbox change', () => {
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <Card {...dummyCard} />
-        </MemoryRouter>
+        <Card {...dummyCard} />
       </Provider>
     );
 

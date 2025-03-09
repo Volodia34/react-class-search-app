@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './Loader.module.css';
 import Pokeball from '../../../../assets/Pokeball.svg';
+import Image from 'next/image';
 
 const Loader: React.FC = () => (
   <div className={styles.loaderContainer}>
-    <img
+    <Image
       src={Pokeball}
       className={styles.spinner}
       alt="Loading"

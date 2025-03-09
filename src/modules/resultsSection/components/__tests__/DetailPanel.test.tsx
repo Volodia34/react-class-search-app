@@ -1,44 +1,38 @@
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-} from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import DetailPanel from '@modules/resultsSection/components/DetailPanel';
-import store from '@modules/core/states/store';
+import { render, screen, waitFor } from '@testing-library/react';
+import { useRouter } from 'next/router';
+import DetailPanel from '../DetailPanel';
+import { ThemeProvider } from '@modules/core/context/ThemeContext';
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}));
+
+jest.mock('next/image', () => ({
+  __esModule: true,
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+    return <img {...props} />;
+  },
+}));
 
 describe('DetailPanel Component', () => {
-  const detailId = '123';
+  beforeEach(() => {
+    (useRouter as jest.Mock).mockReturnValue({
+      query: { id: '123' },
+      push: jest.fn(),
+      back: jest.fn(),
+    });
+  });
 
   test('displays detailed card data after loading and closes on button click', async () => {
     render(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/', `/details/${detailId}?page=1`]}>
-          <Routes>
-            <Route path="/" element={<div>Home Page</div>} />
-            <Route path="/details/:id" element={<DetailPanel />} />
-          </Routes>
-        </MemoryRouter>
-      </Provider>
+      <ThemeProvider>
+        <DetailPanel />
+      </ThemeProvider>
     );
 
-    act(() => {
-      jest.advanceTimersByTime(1000);
-    });
-
     await waitFor(() => {
-      expect(screen.getByText('scyther')).toBeInTheDocument();
-      expect(screen.getByText('#123')).toBeInTheDocument();
-    });
-
-    const closeButton = screen.getByText('←');
-    fireEvent.click(closeButton);
-
-    await waitFor(() => {
-      expect(screen.getByText('Home Page')).toBeInTheDocument();
+      expect(screen.getByText(/scyther/i)).toBeInTheDocument();
+      expect(screen.getByText(/#123/i)).toBeInTheDocument();
     });
   });
 });

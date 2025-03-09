@@ -1,12 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import Header from '../Header';
 
-test('renders Header component', () => {
-  render(
-    <MemoryRouter>
-      <Header />
-    </MemoryRouter>
+jest.mock('next/image', () => {
+  const MockedImage = (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
+    <img {...props} />
   );
+  MockedImage.displayName = 'MockedImage';
+  return MockedImage;
+});
+
+test('renders Header component', () => {
+  render(<Header />);
   expect(screen.getByText(/Pokédex/i)).toBeInTheDocument();
 });

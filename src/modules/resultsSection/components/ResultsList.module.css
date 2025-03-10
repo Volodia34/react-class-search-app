@@ -1,0 +1,22 @@
+.resultsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(8px, 3vw, 20px);
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding: 24px clamp(12px, 3vw, 20px);
+    border-radius: 16px;
+}
+
+@media (max-width: 600px) {
+    .resultsContainer {
+        gap: 8px;
+    }
+}
+
+@media (min-width: 900px) {
+    .resultsContainer {
+        margin-top: 40px;
+    }
+}

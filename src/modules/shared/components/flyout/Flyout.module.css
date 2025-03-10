@@ -1,103 +1,107 @@
 .flyout {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: var(--grayscale-white);
-    border: 1px solid var(--grayscale-wireframe);
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    z-index: 1000;
-    width: 300px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--grayscale-white);
+  border: 1px solid var(--grayscale-wireframe);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  z-index: 1000;
+  width: 300px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
 }
 
 .flyout.show {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .flyout.hide {
-    opacity: 0;
-    transform: translateY(20px);
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 .flyout p {
-    font-family: var(--font-family);
-    font-size: 16px;
-    color: var(--grayscale-dark);
-    margin-bottom: 16px;
+  font-family: var(--font-family);
+  font-size: 16px;
+  color: var(--grayscale-dark);
+  margin-bottom: 16px;
 }
 
 .flyout button {
-    font-family: var(--font-family);
-    font-size: 14px;
-    color: var(--grayscale-white);
-    background-color: var(--identity-primary);
-    border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
-    cursor: pointer;
-    margin-right: 8px;
-    transition: background-color 0.3s;
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: var(--grayscale-white);
+  background-color: var(--identity-primary);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  margin-right: 8px;
+  transition: background-color 0.3s;
 }
 
 .flyout button:hover {
-    background-color: var(--identity-secondary);
+  background-color: var(--identity-secondary);
 }
 
-:root[data-theme="dark"] .flyout {
-    background-color: #2e2e2e;
-    border: 1px solid #555555;
-    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+:root[data-theme='dark'] .flyout {
+  background-color: #2e2e2e;
+  border: 1px solid #555555;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
 
-:root[data-theme="dark"] .flyout p {
-    color: #f0f0f0;
+:root[data-theme='dark'] .flyout p {
+  color: #f0f0f0;
 }
 
-:root[data-theme="dark"] .flyout button {
-    background-color: var(--identity-primary);
-    color: #ffffff;
-    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.2), 0 4px 8px rgba(0, 0, 0, 0.3);
+:root[data-theme='dark'] .flyout button {
+  background-color: var(--identity-primary);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 3px rgba(255, 255, 255, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-:root[data-theme="dark"] .flyout button:hover {
-    background-color: var(--identity-secondary);
+:root[data-theme='dark'] .flyout button:hover {
+  background-color: var(--identity-secondary);
 }
 
 @media (max-width: 768px) {
-    .flyout {
-        width: 250px;
-        padding: 12px;
-    }
+  .flyout {
+    width: 250px;
+    padding: 12px;
+  }
 
-    .flyout p {
-        font-size: 14px;
-        margin-bottom: 12px;
-    }
+  .flyout p {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
 
-    .flyout button {
-        font-size: 12px;
-        padding: 6px 10px;
-    }
+  .flyout button {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
 }
 
 @media (max-width: 480px) {
-    .flyout {
-        width: 200px;
-        padding: 10px;
-    }
+  .flyout {
+    width: 200px;
+    padding: 10px;
+  }
 
-    .flyout p {
-        font-size: 12px;
-        margin-bottom: 8px;
-    }
+  .flyout p {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
 
-    .flyout button {
-        font-size: 10px;
-        padding: 4px 8px;
-    }
+  .flyout button {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
 }

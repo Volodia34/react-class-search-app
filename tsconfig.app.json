@@ -26,10 +26,6 @@
       "@modules/*": ["src/modules/*"]
     }
   },
-  "include": [
-    "src",
-    "node_modules/vitest/globals.d.ts"
-  ],
+  "include": ["src", "node_modules/vitest/globals.d.ts"],
   "types": ["jest", "@testing-library/jest-dom"]
-
 }

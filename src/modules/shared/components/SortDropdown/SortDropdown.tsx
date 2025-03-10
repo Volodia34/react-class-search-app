@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useSearchParams, useRouter } from 'next/navigation';
 import styles from './SortDropdown.module.css';
 import tag from '../../../../assets/tag.svg';
 import text from '../../../../assets/text.svg';
@@ -7,16 +7,16 @@ import Image from 'next/image';
 
 const SortDropdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const searchParams = useSearchParams();
   const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const selectedSort = router.query.sort || 'number';
+  const selectedSort = searchParams.get('sort') || 'number';
 
   const handleSortChange = (value: string) => {
-    router.push({
-      pathname: router.pathname,
-      query: { ...router.query, sort: value, searchTerm: '' },
-    });
+    const newSearchParams = new URLSearchParams(searchParams.toString());
+    newSearchParams.set('sort', value);
+    router.push(`?${newSearchParams.toString()}`);
     setIsOpen(false);
   };
 

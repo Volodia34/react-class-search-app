@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@modules/core/states/store.ts';
 import { addItem, removeItem } from '@modules/core/states/selectedItemsSlice';
 import styles from './Card.module.css';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { Item } from '../../../../types/Item.ts';
 
 type CardProps = Item;
@@ -16,8 +16,10 @@ const Card: React.FC<CardProps> = ({ number, imageSrc, name }) => {
     (state: RootState) => state.selectedItems.items
   );
   const isSelected = selectedItems.some((item) => item.id === number);
-  const currentSearchTerm = router.query.searchTerm as string;
-  const currentPage = (router.query.page as string) || '1';
+  const currentSearchTerm =
+    new URLSearchParams(window.location.search).get('searchTerm') || '';
+  const currentPage =
+    new URLSearchParams(window.location.search).get('page') || '1';
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();

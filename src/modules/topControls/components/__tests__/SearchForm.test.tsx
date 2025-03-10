@@ -1,11 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import SearchForm from '@modules/topControls/components/SearchForm';
+import { useRouter, useSearchParams } from 'next/navigation';
 
-jest.mock('next/router', () => ({
-  useRouter: () => ({
-    query: {},
-    push: jest.fn(),
-  }),
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
+  useSearchParams: jest.fn(),
 }));
 
 jest.mock('next/image', () => {
@@ -19,6 +18,12 @@ jest.mock('next/image', () => {
 describe('SearchForm component', () => {
   beforeEach(() => {
     localStorage.clear();
+    (useRouter as jest.Mock).mockReturnValue({
+      push: jest.fn(),
+    });
+    (useSearchParams as jest.Mock).mockReturnValue({
+      get: jest.fn().mockReturnValue(''),
+    });
   });
 
   test('clicking the Search button saves the entered value to localStorage', () => {

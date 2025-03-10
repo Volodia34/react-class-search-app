@@ -2,15 +2,13 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import Card from '../Card';
+import { useRouter } from 'next/navigation';
 
 const mockStore = configureStore([]);
 const mockedPush = jest.fn();
 
-jest.mock('next/router', () => ({
-  useRouter: () => ({
-    push: mockedPush,
-    query: { searchTerm: '', page: '1' },
-  }),
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
 }));
 
 describe('Card Component', () => {
@@ -28,6 +26,10 @@ describe('Card Component', () => {
     });
     store.dispatch = jest.fn();
     mockedPush.mockReset();
+    (useRouter as jest.Mock).mockReturnValue({
+      push: mockedPush,
+      query: { searchTerm: '', page: '1' },
+    });
   });
 
   test('renders relevant card data', () => {

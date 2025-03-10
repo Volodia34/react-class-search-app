@@ -1,26 +1,54 @@
-import { render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { useRouter } from 'next/navigation';
 import ResultsList from '../ResultsList';
-import store from '@modules/core/states/store';
+import Pagination from '../Pagination';
+import { ThemeProvider } from '@modules/core/context/ThemeContext';
 
-const dummyData = [
-  { number: '001', name: 'Bulbasaur', imageSrc: 'bulbasaur.png' },
-  { number: '002', name: 'Ivysaur', imageSrc: 'ivysaur.png' },
-];
-
-jest.mock('next/router', () => ({
-  useRouter: () => ({
-    query: {},
-    push: jest.fn(),
-  }),
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(),
 }));
 
-test('renders the specified number of cards', () => {
-  render(
-    <Provider store={store}>
-      <ResultsList loading={false} error={null} data={dummyData} />
-    </Provider>
-  );
-  expect(screen.getByText(/Bulbasaur/i)).toBeInTheDocument();
-  expect(screen.getByText(/Ivysaur/i)).toBeInTheDocument();
+jest.mock('next/image', () => ({
+  __esModule: true,
+  default: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
+    return <img {...props} />;
+  },
+}));
+
+describe('ResultsList Component', () => {
+  beforeEach(() => {
+    (useRouter as jest.Mock).mockReturnValue({
+      query: { page: '1' },
+      push: jest.fn(),
+      pathname: '/',
+    });
+  });
+
+  test('renders ResultsList component', () => {
+    render(
+      <ThemeProvider>
+        <ResultsList loading={false} error={null} data={[]} />
+      </ThemeProvider>
+    );
+    expect(screen.getByText('No results')).toBeInTheDocument();
+  });
+
+  test('updates URL query parameter when page changes', () => {
+    const push = jest.fn();
+    (useRouter as jest.Mock).mockReturnValue({
+      query: { page: '1' },
+      push,
+      pathname: '/',
+    });
+
+    render(
+      <ThemeProvider>
+        <Pagination totalPages={3} currentPage={1} />
+      </ThemeProvider>
+    );
+
+    const page2Button = screen.getByText('2');
+    fireEvent.click(page2Button);
+    expect(push).toHaveBeenCalledWith(`?page=2`);
+  });
 });

@@ -1,8 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Pagination from '../Pagination';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
-jest.mock('next/router', () => ({
+jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
 
@@ -18,9 +18,6 @@ describe('Pagination Component', () => {
     render(<Pagination totalPages={3} currentPage={1} />);
     const page2Button = screen.getByText('2');
     fireEvent.click(page2Button);
-    expect(push).toHaveBeenCalledWith({
-      pathname: '/',
-      query: { page: '2' },
-    });
+    expect(push).toHaveBeenCalledWith(`?page=2`);
   });
 });

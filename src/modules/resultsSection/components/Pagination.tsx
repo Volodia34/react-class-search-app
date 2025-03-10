@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import styles from './Pagination.module.css';
 
 interface PaginationProps {
@@ -12,8 +12,9 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
   const maxPageButtons = 5;
 
   const handlePageChange = (page: number) => {
-    const query = { ...router.query, page: page.toString() };
-    router.push({ pathname: router.pathname, query });
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('page', page.toString());
+    router.push(`?${searchParams.toString()}`);
   };
 
   const getPageNumbers = () => {

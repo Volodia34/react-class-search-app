@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter, usePathname } from 'next/navigation';
 import weight from '../../../assets/weight.svg';
 import height from '../../../assets/straighten.svg';
 import leftArrow from '../../../assets/left.svg';
@@ -47,9 +49,11 @@ const typeColors: { [key: string]: string } = {
 
 const DetailCard: React.FC = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const pathname = usePathname();
+  const id = pathname.split('/').pop();
   const [pokemon, setPokemon] = useState<PokemonData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const [animatedStats, setAnimatedStats] = useState<{ [key: string]: number }>(
     {}
@@ -74,7 +78,13 @@ const DetailCard: React.FC = () => {
 
   useEffect(() => {
     const fetchPokemon = async () => {
+      if (!id) {
+        console.error('No ID found in URL path');
+        return;
+      }
+      console.log(`Fetching Pokémon with ID: ${id}`);
       setLoading(true);
+      setError(null);
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
         if (!response.ok) {
@@ -83,18 +93,18 @@ const DetailCard: React.FC = () => {
         const data: PokemonData = await response.json();
         setPokemon(data);
       } catch (error) {
+        setError((error as Error).message);
         console.error(error);
       } finally {
         setLoading(false);
       }
     };
 
-    if (id) {
-      fetchPokemon();
-    }
+    fetchPokemon();
   }, [id]);
 
   if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
   if (!pokemon) return <p>Pokémon not found</p>;
 
   const primaryType = pokemon.types[0].type.name;
